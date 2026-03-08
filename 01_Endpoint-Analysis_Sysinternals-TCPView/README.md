@@ -1,36 +1,71 @@
-# 🖥️ Endpoint Analysis: Identifying Running Processes & Network Connections
+# Endpoint Analysis: Process & Network Visibility with Sysinternals TCPView
 
-### 📖 Project Overview
-This implementation focuses on host-based security monitoring. By utilizing the **Microsoft Sysinternals Suite**, I analyzed active processes and their associated network endpoints (TCP/UDP) to identify baseline system behavior and user-initiated activity.
+![Sysinternals](https://img.shields.io/badge/Sysinternals-TCPView-0078D4?style=flat&logo=windows&logoColor=white)
+![Platform](https://img.shields.io/badge/Platform-Windows-0078D4?style=flat&logo=windows&logoColor=white)
+![Domain](https://img.shields.io/badge/Domain-Endpoint_Analysis-4CAF50?style=flat&logoColor=white)
 
-## 🚀 Execution Steps.
-
-### 1. Environment Setup
-- Deployed the **Windows Sysinternals Suite**, a collection of advanced system utilities for troubleshooting and security analysis.
-- Initialized **TCPView (Tcpview.exe)** to gain real-time visibility into the network activity of all running processes.
-
-### 2. System Process Exploration
-- Analyzed core Windows processes to establish a security baseline.
-- **Deep Dive: `lsass.exe` (Local Security Authority Subsystem Service)**
-  - **Role:** Responsible for enforcing security policy on the system (user logins, password changes).
-  - **Location:** `C:\Windows\System32`
-  - *Security Insight: Verifying the file path of lsass.exe is a critical step in detecting malware that mimics system process names.*
-
-### 3. User-Activity Monitoring & Dynamic Analysis
-- **Test:** Opened a web browser (Microsoft Edge) while monitoring the TCPView interface.
-- **Observation:** Immediately identified multiple new TCP connections originating from the browser process to various remote IP addresses on ports 80 (HTTP) and 443 (HTTPS).
-- **Termination:** Observed the transition from `ESTABLISHED` to `TIME_WAIT` and eventual disappearance of the process threads upon closing the application.
-
-## 🔍 Key Findings
-| Process | Type | Observed Behavior |
-| :--- | :--- | :--- |
-| `lsass.exe` | System | Persistent, local security authority, no external traffic. |
-| `msedge.exe` | User | Dynamic, spawned multiple remote connections via TCP. |
-| `svchost.exe` | System | Hosting various Windows services; frequent local port activity. |
-
-## 🛠️ Tools Used
-- **[Windows Sysinternals](https://learn.microsoft.com):** Specifically **TCPView** for endpoint mapping.
-- **Windows Command Line:** For directory navigation and tool execution.
+**Analyst:** Denis O. Onduso  
+**Focus:** Host-based process monitoring, network connection mapping, and system baseline establishment
 
 ---
-*Documentation developed for **CyberOps Associate** portfolio.*
+
+## Objective
+
+Map all active processes to their network endpoints in real time using Sysinternals TCPView, identify baseline system behavior for core Windows processes, and observe how user-initiated activity dynamically changes the endpoint's network footprint.
+
+---
+
+## Environment
+
+- Windows host with Sysinternals Suite deployed
+- TCPView (`Tcpview.exe`) used for live TCP/UDP endpoint visibility across all running processes
+
+---
+
+## Analysis
+
+### Baseline: Core System Processes
+
+Before introducing any user activity, the following system processes were observed and documented to establish a clean baseline:
+
+| Process | PID Type | Network Behavior | Security Note |
+|---------|----------|------------------|---------------|
+| `lsass.exe` | System | No external connections — local authentication traffic only | Path must be `C:\Windows\System32\lsass.exe`. Any deviation (e.g. `lsasss.exe`, wrong path) is a strong masquerading indicator |
+| `svchost.exe` | System | Multiple local port listeners; hosts various Windows service groups | Legitimate instances run under `C:\Windows\System32\`. Multiple instances are normal — verify parent is `services.exe` |
+| `System` | Kernel | Minimal, predictable local traffic | Should not establish outbound internet connections |
+
+### Dynamic Analysis: Monitoring User-Initiated Activity
+
+With the baseline captured, Microsoft Edge was launched while TCPView remained open. The following changes were observed in real time:
+
+- `msedge.exe` spawned multiple child processes immediately on launch
+- New outbound TCP connections appeared within seconds, targeting remote IPs on **port 443 (HTTPS)** and **port 80 (HTTP)**
+- Connection states cycled through: `SYN_SENT` → `ESTABLISHED` → `TIME_WAIT` → removed
+- On closing the browser, all associated connections transitioned to `TIME_WAIT` and were cleared from the view as the OS completed the TCP teardown sequence
+
+This confirmed that TCPView provides sufficient granularity to attribute specific network connections to specific processes in real time — a core capability for triage during an endpoint investigation.
+
+---
+
+## Key Findings
+
+The analysis confirmed that legitimate system processes (`lsass.exe`, `svchost.exe`) maintain predictable, locally scoped network behavior. Any outbound connections from these processes would be immediately anomalous and warrant investigation.
+
+User-space processes like `msedge.exe` behave exactly as expected — dynamic, high-connection-count, short-lived sessions to CDN and web infrastructure. Knowing what normal looks like here is what makes abnormal (e.g. a browser process connecting to a non-standard port, or `lsass.exe` with any outbound connection) detectable.
+
+---
+
+## Tools
+
+- **Sysinternals TCPView** — real-time process-to-endpoint mapping
+- **Windows Command Line** — tool execution and directory navigation
+
+---
+
+## MITRE ATT&CK Relevance
+
+| Technique | ID | Relevance |
+|-----------|----|-----------|
+| Process Discovery | T1057 | Enumerating running processes to understand system state |
+| System Network Connections Discovery | T1049 | Mapping active connections per process |
+| Masquerading | T1036 | lsass.exe path verification detects process name spoofing |
