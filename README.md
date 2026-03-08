@@ -1,233 +1,139 @@
-# Security Operations & Cybersecurity Analysis Portfolio
+![Wireshark](https://img.shields.io/badge/Wireshark-1679C2?style=flat&logo=wireshark&logoColor=white)
+![Splunk](https://img.shields.io/badge/Splunk-000000?style=flat&logo=splunk&logoColor=white)
+![Elastic](https://img.shields.io/badge/Elastic_Stack-005571?style=flat&logo=elastic&logoColor=white)
+![Suricata](https://img.shields.io/badge/Suricata-EF7B29?style=flat&logoColor=white)
+![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?style=flat&logo=powershell&logoColor=white)
+![Windows](https://img.shields.io/badge/Sysinternals-0078D4?style=flat&logo=windows&logoColor=white)
+![MITRE ATT&CK](https://img.shields.io/badge/MITRE_ATT%26CK-E01B1B?style=flat&logoColor=white)
+![Zeek](https://img.shields.io/badge/Zeek-2F6FAD?style=flat&logoColor=white)
+![Security Onion](https://img.shields.io/badge/Security_Onion-4CAF50?style=flat&logoColor=white)
+![Volatility](https://img.shields.io/badge/Volatility_Framework-6C3483?style=flat&logoColor=white)
+![NIST](https://img.shields.io/badge/NIST_CSF-003087?style=flat&logoColor=white)
+![MIT License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat)
+# Security Operations & Incident Response Portfolio
 
-![SOC Analyst](https://img.shields.io/badge/Role-SOC_Analyst-0052CC)
-![Incident Response](https://img.shields.io/badge/Specialization-Incident_Response-FF6B6B)  
-![Threat Hunting](https://img.shields.io/badge/Focus-Threat_Hunting-00B894)
-![Forensics](https://img.shields.io/badge/Expertise-Digital_Forensics-6C5CE7)     
-        
-**Author:** Denis O. Onduso        
-
-**Security Domain:** Security Operations Center (SOC) | Digital Forensics | Detection Engineering    
-  
-**Status:** Operational Analysis Portfolio | Professional Readiness Demonstration
-
-
-## Executive summary.
-
-
-This repository documents comprehensive security operations analysis capabilities developed through systematic, hands-on investigation of simulated production security incidents. The work demonstrates proficiency across the full spectrum of SOC analyst responsibilities, from initial alert triage through to comprehensive incident documentation and escalation.
-
-## Scope of Analysis.
-
-The repository reflects structured security operations workflows aligned with industry-standard incident analysis and response practices.
-
-| Phase | Activities | Tools & Techniques |
-|------|-----------|-------------------|
-| **Evidence Collection** | Endpoint artifact acquisition, network packet capture, centralized log aggregation | Sysinternals Suite, Wireshark, PowerShell |
-| **Analysis & Correlation** | Timeline reconstruction, cross-source validation, indicator extraction and enrichment | Timeline analysis methodologies, event correlation techniques, cryptographic hash validation |
-| **Impact Assessment** | Scope determination, severity classification, affected asset identification | Business impact analysis, risk assessment frameworks |
-| **Documentation & Reporting** | Incident reporting, executive summary preparation, evidence preservation | Standardized reporting formats, chain-of-custody practices |
-
----
-## Technical Analysis Capabilities.
-
-### Endpoint Security Analysis.
-
-![Endpoint](https://img.shields.io/badge/Endpoint-Sysinternals-0078D4?style=for-the-badge)
-![Automation](https://img.shields.io/badge/Automation-PowerShell-5391FE?style=for-the-badge)
-
-- **Process Execution Analysis**  
-  Identification and tracking of malicious process creation, including parent-child relationships and full execution chain reconstruction.
-
-- **Memory Forensics**  
-  Examination of volatile memory artifacts to identify hidden processes, injected code, and in-memory execution techniques.
-
-- **File System Artifact Analysis**  
-  Analysis of Prefetch files and ShimCache entries to validate program execution and establish execution timelines.
-
-- **Registry Forensics**  
-  Identification of persistence mechanisms and malicious configuration changes through registry analysis.
-
-- **PowerShell Activity Auditing**  
-  Analysis of script block logging, command-line arguments, and execution context to identify abuse of PowerShell for post-compromise activity.
-
-### Network Security Analysis.
-
-![Protocol Analysis](https://img.shields.io/badge/Protocol-Analysis-4ECDC4?style=for-the-badge)
-![Wireshark](https://img.shields.io/badge/Tool-Wireshark-1679C2?style=for-the-badge)
-
-- **Protocol Dissection**  
-  Deep packet inspection across the TCP/IP stack to identify abnormal protocol behavior and misuse.
-
-- **Anomaly Detection**  
-  Identification of beaconing patterns, command-and-control communications, and data exfiltration activity.
-
-- **Payload Extraction**  
-  Recovery of malicious payloads from network streams to support secondary analysis and malware classification.
-
-- **Traffic Reconstruction**  
-  Session reassembly and application-layer inspection to reconstruct attacker activity and data flow.
-
-- **Encryption Analysis**  
-  Inspection of SSL/TLS usage where visibility allows, including cipher suite evaluation and encryption implementation review.
+**Denis O. Onduso** · SOC Analysis · Digital Forensics · Detection Engineering  
+📧 Denis.Onduso@outlook.com
 
 ---
 
-### Detection & Log Engineering
+## Overview
 
-![SIEM Integration](https://img.shields.io/badge/Platform-SIEM%20Integration-F39C12?style=for-the-badge)
-![Log Normalization](https://img.shields.io/badge/Process-Log%20Normalization-8E44AD?style=for-the-badge)
+This repository documents hands-on security operations work across endpoint forensics, network traffic analysis, cryptographic validation, and full incident response investigations. Each project follows analyst-level methodology — starting from raw evidence, working through tool-assisted investigation, and ending with documented findings and recommendations.
 
-- **Log Normalization**  
-  Standardization of heterogeneous log sources to enable consistent analysis and reliable correlation.
-
-- **Event Correlation**  
-  Development of multi-source correlation logic to identify complex attack patterns across environments.
-
-- **Timeline Analysis**  
-  Chronological reconstruction of security events to establish attack progression and dwell time.
-
-- **Alert Tuning**  
-  Iterative refinement of detection logic to reduce false positives and improve signal quality.
+The work spans 18 projects organized by discipline, from foundational endpoint visibility through to multi-stage malware analysis using real PCAP data.
 
 ---
 
-### Cryptographic Security Validation
+## Highlighted Investigations
 
-![Integrity Validation](https://img.shields.io/badge/Crypto-Integrity%20Validation-3498DB?style=for-the-badge)
-![PKI Validation](https://img.shields.io/badge/Trust-PKI%20Validation-2ECC71?style=for-the-badge)
+### Remcos RAT & Dridex Infection — Multi-Stage Endpoint Compromise
+`Wireshark` `Zeek` `Suricata` `Kibana` `Elastic Stack`
 
-- **Hash Validation**  
-  Verification of file integrity using cryptographic hashing to detect tampering or unauthorized modification.
+Investigated a multi-stage infection chain triggered on 2019-03-19. NSM alerts fired on encrypted C2 traffic to an external IP, leading to discovery of two malicious executables retrieved via HTTP GET requests. Analysis confirmed Remcos RAT check-ins on non-standard ports alongside Dridex-associated SSL certificates originating from `31.22.4.176`. Payload extraction from the PCAP revealed an MZ (hex `4D 5A`) file signature. SHA256 hash `2a9b0ed40f1f0bc0c13ff35d304689e9cadd633781cbcad1c2d2b92ced3f1c85` was verified against Cisco Talos Intelligence as a confirmed malicious downloader. Recommendations included host isolation, firewall blacklisting of the C2 IP, and forced credential reset given Remcos's credential-harvesting capability.
 
-- **Certificate Analysis**  
-  Validation of PKI trust chains through certificate parsing and issuer verification.
-
-- **Encryption Assessment**  
-  Evaluation of encryption implementations and cipher strength to identify weak or misconfigured cryptographic controls.
-## Incident Investigation Case Studies
-
-The following case studies demonstrate end-to-end incident investigation capabilities, from initial detection through impact assessment and documentation. Each scenario reflects analysis patterns commonly encountered in enterprise SOC and incident response operations.
+→ [Full investigation](./18_Remcos%20RAT%20%26%20Dridex%20Infection%20Analysis)
 
 ---
 
-### Case Study 1: Endpoint Compromise Analysis
+### SQL Injection & DNS Exfiltration — Web Application Compromise
+`Security Onion` `Zeek` `Suricata` `Kibana` `capME`
 
-**Scenario:**  
-Investigation of a Remcos Remote Access Trojan (RAT) infection impacting multiple enterprise endpoints.
+Analyzed a June 2020 web server breach using pre-loaded Zeek and Suricata logs in a Security Onion environment. HTTP URI analysis in Kibana revealed a classic SQL injection payload targeting the credit card table:
 
-**Key Findings:**
-- Identified malicious persistence mechanisms implemented through Windows Registry `Run` keys.
-- Mapped recurring network beaconing activity to external command-and-control (C2) infrastructure.
-- Recovered staged malware payloads from temporary directories, confirming multi-stage execution.
-- Documented attempted lateral movement activity leveraging SMB-based techniques.
+```
+username='+union+select+ccid,ccnumber,ccv,expiration,null+from+credit_cards+--+
+```
 
----
+Post-exploitation, DNS log analysis identified an exfiltration channel — unusually long subdomain query strings encoding PII and card data (e.g. `ccnumber.signature.data.maliciousdomain.com`). Detection rules drafted in Suricata syntax to flag both SQLi patterns and anomalous DNS query lengths. Remediation report covers parameterized query implementation and DNS monitoring controls.
 
-### Case Study 2: Data Exfiltration Investigation
-
-**Scenario:**  
-Analysis of unauthorized FTP-based transfer of sensitive data from internal systems.
-
-**Key Findings:**
-- Correlated user authentication events with outbound FTP transfer activity.
-- Identified data staging behavior prior to exfiltration.
-- Quantified the volume and sensitivity of data exfiltrated from the environment.
-- Established attacker dwell time through timeline reconstruction and log correlation.
+→ [Full investigation](./15_SQL%20Injection%20%26%20DNS%20Exfiltration%20Investigation)
 
 ---
 
-### Case Study 3: Web Application Compromise
+### FTP Post-Exploitation Data Exfiltration
+`Wireshark` `Zeek` `Log Correlation`
 
-**Scenario:**  
-Investigation of a SQL injection attack resulting in unauthorized database access and credential exposure.
+Investigated unauthorized FTP-based data transfer following an endpoint compromise. Correlated authentication events with outbound transfer activity, identified data staging behavior prior to exfiltration, quantified the volume of data moved, and established attacker dwell time through timeline reconstruction.
 
-**Key Findings:**
-- Traced injection payloads through web server and application logs.
-- Identified anomalous database queries indicative of exploitation activity.
-- Mapped attacker reconnaissance and enumeration behavior.
-- Documented credential access and subsequent privilege escalation attempts.
-## Technical Environment & Tooling
-
-### Primary Analysis Platforms
-
-![Windows Analysis](https://img.shields.io/badge/Windows-Security%20Analysis-0078D4?style=for-the-badge)
-![Network Analysis](https://img.shields.io/badge/Network-Traffic%20Analysis-4ECDC4?style=for-the-badge)
-![Forensics](https://img.shields.io/badge/Digital-Forensics-8E44AD?style=for-the-badge)
-
-- **Windows Security Analysis**  
-  Sysinternals Suite, Windows Event Logs, and PowerShell for process visibility, execution auditing, and endpoint investigation.
-
-- **Network Traffic Analysis**  
-  Wireshark, tcpdump, and NetworkMiner for packet capture analysis, session reconstruction, and artifact extraction.
-
-- **Log Management & Parsing**  
-  Custom parsing scripts and regular expression development for log normalization and structured analysis.
-
-- **Digital Forensics Tooling**  
-  FTK Imager, Autopsy, and the Volatility Framework for disk and memory artifact acquisition and analysis.
+→ [Full investigation](./16_SOC-CaseStudy-PostExploitation-FTP-Exfil)
 
 ---
 
-### Analysis Environment Specifications
+### Rig Exploit Kit — Drive-By Malware Delivery
+`Wireshark` `PCAP Analysis` `Malware Triage`
 
-![Isolated Environment](https://img.shields.io/badge/Environment-Isolated%20Analysis-F39C12?style=for-the-badge)
-![Evidence Handling](https://img.shields.io/badge/Process-Evidence%20Handling-2ECC71?style=for-the-badge)
+Analyzed traffic patterns associated with the Rig EK delivery mechanism, tracing the redirect chain from initial landing page through payload delivery. Extracted and documented malware artifacts from the packet capture.
 
-- Isolated, virtualized network environments designed for safe malware and intrusion analysis.
-- Dedicated forensic workstations with write-blocking capabilities to preserve evidence integrity.
-- Standardized evidence collection, handling, and preservation procedures.
-- Reproducible analysis environments to ensure consistent and verifiable results.
+→ [Full investigation](./17_SOC-CaseStudy-RigEK-Malware-Analysis)
 
 ---
 
-## Professional Development Alignment
+## Project Index
 
-### Industry Framework Integration
+### Endpoint Analysis
 
-![MITRE ATT&CK](https://img.shields.io/badge/Framework-MITRE%20ATT%26CK-red?style=for-the-badge)
-![NIST](https://img.shields.io/badge/Framework-NIST%20CSF-blue?style=for-the-badge)
-![ISO 27001](https://img.shields.io/badge/Standard-ISO%2027001-black?style=for-the-badge)
+| # | Project | Tools | Focus |
+|---|---------|-------|-------|
+| 01 | [Endpoint Analysis — TCPView](./01_Endpoint-Analysis_Sysinternals-TCPView) | Sysinternals TCPView | Process-to-network mapping; baseline vs. anomalous connection detection |
+| 02 | [Endpoint Forensics — Process Explorer](./02_Endpoint-Forensics_Sysinternals-Process-Explorer) | Sysinternals Process Explorer | Parent-child process relationships, DLL inspection, memory strings |
+| 03 | [Endpoint Auditing — PowerShell Forensics](./03_Endpoint-Auditing_PowerShell-Forensics) | PowerShell, Script Block Logging | Auditing execution context, command-line argument analysis |
+| 04 | [System Resource Audit](./04_System-Resource-Audit_Performance-Monitoring) | Performance Monitor, Sysinternals | Baseline resource profiling for anomaly detection |
 
-- **MITRE ATT&CK® Framework**  
-  Technique mapping and procedure documentation to classify adversary behavior.
+### Network Analysis
 
-- **NIST Cybersecurity Framework**  
-  Alignment with Identify, Protect, Detect, Respond, and Recover functional domains.
+| # | Project | Tools | Focus |
+|---|---------|-------|-------|
+| 05 | [Network Path Analysis — ICMP Forensics](./05_Network-Path-Analysis_ICMP-Forensics) | Wireshark, tracert | Hop-by-hop path reconstruction, TTL analysis |
+| 06 | [Packet Analysis — Protocol Basics](./06_Packet-Analysis_Wireshark-Protocol-Basics) | Wireshark | TCP/IP dissection, stream reassembly, filter construction |
+| 14 | [Network Forensics — Malware Extraction](./14_Network-Forensics-Malware-Extraction) | Wireshark, NetworkMiner | Payload carving from PCAP, file signature identification |
 
-- **ISO/IEC 27001**  
-  Application of information security incident management principles.
+### Defensive Controls
 
-- **Cyber Kill Chain Model**  
-  Attack phase identification to support detection, disruption, and response strategies.
+| # | Project | Tools | Focus |
+|---|---------|-------|-------|
+| 07 | [ACL Hardening](./07_Defensive-Control_ACL-Hardening) | Windows ACL, icacls | Permission auditing, least-privilege enforcement |
+
+### Cryptographic Validation
+
+| # | Project | Tools | Focus |
+|---|---------|-------|-------|
+| 08 | [Symmetric Encryption Validation](./08_symmetric-encryption-validation) | OpenSSL, PowerShell | Cipher strength assessment, encryption implementation review |
+| 09 | [Data Integrity Validation](./09_Data-integrity-validation) | SHA256, MD5 | Hash-based file integrity verification |
+| 10 | [PKI Trust Validation](./10_PKI-trust-validation) | Certificate analysis tools | Certificate chain parsing, issuer verification |
+
+### Detection Engineering & Log Analysis
+
+| # | Project | Tools | Focus |
+|---|---------|-------|-------|
+| 11 | [Log Normalization & ETL](./11_log-normalization-and-etl) | PowerShell, Regex | Heterogeneous log source standardization |
+| 12 | [File Integrity Audit](./12_File-Integrity-Audit) | PowerShell, Hashing | Detecting unauthorized file modification |
+| 13 | [Log Normalization Utility](./13_log-normalization-utility) | PowerShell | Reusable parsing utility for structured log output |
+
+### Incident Response Case Studies
+
+| # | Project | Threat | Tools |
+|---|---------|--------|-------|
+| 15 | [SQL Injection & DNS Exfiltration](./15_SQL%20Injection%20%26%20DNS%20Exfiltration%20Investigation) | SQLi + DNS tunneling | Security Onion, Zeek, Kibana |
+| 16 | [Post-Exploitation FTP Exfiltration](./16_SOC-CaseStudy-PostExploitation-FTP-Exfil) | Data exfiltration | Wireshark, Zeek |
+| 17 | [Rig Exploit Kit Analysis](./17_SOC-CaseStudy-RigEK-Malware-Analysis) | Drive-by download | Wireshark, PCAP triage |
+| 18 | [Remcos RAT & Dridex Infection](./18_Remcos%20RAT%20%26%20Dridex%20Infection%20Analysis) | RAT + banking trojan | Wireshark, Zeek, Elastic, Talos |
 
 ---
 
-### Certification Competency Mapping
+## Technical Stack
 
-![Incident Response](https://img.shields.io/badge/Domain-Incident%20Response-purple?style=for-the-badge)
-![Forensics](https://img.shields.io/badge/Domain-Digital%20Forensics-8E44AD?style=for-the-badge)
+**Endpoint:** Sysinternals Suite (TCPView, Process Explorer, Autoruns), Windows Event Logs, PowerShell Script Block Logging, Prefetch/ShimCache analysis  
+**Network:** Wireshark, Zeek (Bro), tcpdump, NetworkMiner, capME  
+**SIEM / Detection:** Splunk, Security Onion, Kibana / Elastic Stack, Suricata, Sguil  
+**Forensics:** FTK Imager, Autopsy, Volatility Framework  
+**Threat Intel:** MITRE ATT&CK, Cisco Talos Intelligence, ABUSE.CH SSL Blacklist  
+**Frameworks:** MITRE ATT&CK · NIST CSF · Cyber Kill Chain · ISO/IEC 27001
 
-The analytical capabilities demonstrated align with the knowledge domains covered by the following industry certifications:
+---
 
-- **GIAC Certified Incident Handler (GCIH)**  
-  Incident detection, containment, and response procedures.
+## Contact
 
-- **CompTIA Cybersecurity Analyst (CySA+)**  
-  Behavioral analytics, threat detection, and data-driven analysis.
-
-- **EC-Council Certified Incident Handler (ECIH)**  
-  Structured incident response lifecycle and investigation techniques.
-
-- **GIAC Certified Forensic Analyst (GCFA)**  
-  Advanced digital forensics and artifact analysis methodologies.
-  
-
-# Contact Information.
-### Name: Denis O. Onduso
-
-### Scope: Security Operations & Cybersecurity Analyst
-
-### Email:  Denis.Onduso@outlook.com
-
-
+**Denis O. Onduso**  
+Security Operations & Incident Response  
+Denis.Onduso@outlook.com
